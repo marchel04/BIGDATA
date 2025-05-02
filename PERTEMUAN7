@@ -1,1 +1,185 @@
+import pandas as pd
+import numpy as np
 
+data_olah = 'insurance.csv'
+dataset = pd.read_csv(data_olah)
+dataset.head(20)
+
+
+=============================================================================================================
+
+dataset.isnull().sum()
+
+=============================================================================================================
+import pandas as pd
+# Data dictionary
+data = {
+    "Nilai UTS": [80.0, 78.0, 72.0, 68.0, 78.0, None, 96.0, 76.0, 73.0, 66.0, 89.0, 75.0],
+    "Nilai UAS": [87.0, 81.0, 7.0, 65.0, 9.0, 78.0, 87.0, 78.0, 81.0, 88.0, None, 86.0]
+}
+
+# Convert to DataFrame
+df = pd.DataFrame(data)
+
+# Save to CSV
+df.to_csv('data3.csv', index=False)
+
+# Optional: display the DataFrame
+df
+
+
+=============================================================================================================
+import pandas as pd
+
+# Buat DataFrame dari dictionary
+df = pd.DataFrame(data)
+
+# Cek nilai yang hilang
+print(df.isnull().sum())
+
+
+=============================================================================================================
+
+import pandas as pd
+
+# Contoh DataFrame
+data = {
+    "Nilai UTS": [80.0, 78.0, 72.0, 68.0, 78.0, None, 96.0, 76.0, 73.0, 66.0, 89.0, 75.0],
+    "Nilai UAS": [87.0, 81.0, 7.0, 65.0, 9.0, 78.0, 87.0, 78.0, 81.0, 88.0, None, 86.0]
+}
+df = pd.DataFrame(data)
+
+# Ganti NaN dengan '#'
+df_filled = df.fillna('#')
+
+print(df_filled)
+
+====
+!pip install numpy
+import numpy as np
+
+
+import pandas as pd
+import numpy as np
+
+dataset = {
+    "Nama": ["Rafi", "Laras", "Widi", "Antok", "Gempa", "Agus", "Dina"],
+    "Berat": [75, 76, np.nan, 73, 82, 90, np.nan],
+    "Tinggi": [170, 184, 178, np.nan, 173, 180, 168]
+}
+
+df = pd.DataFrame(dataset)
+print(df)A
+=============================================================================================================
+
+
+df['Berat'] = df['Berat'].fillna(df['Berat'].mean())
+df
+
+
+=============================================================================================================
+#Melihat Tahapan Preprocessing Text 
+from nltk.tokenize import word_tokenize 
+from nltk.corpus import stopwords 
+import string 
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory 
+
+k = "JKN-KIS menanggung perawatan penyakit Orang Dengan Gangguan Jiwa, agar tidak tercipta Joker lainnya :)" 
+print('kalimat asli') 
+print(k) 
+print() 
+"""
+Tahapan Preprocessing 
+Case Folding 
+Filtering 
+Stemming -> dapat refrensi opsional karena menambah kinerja server 
+Tokenize 
+Stopword Removal
+
+"""
+
+
+=============================================================================================================
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
+
+
+
+
+=============================================================================================================
+case_folding = k.lower() 
+print("Case Folding: ") 
+print(case_folding) 
+print() 
+fil = case_folding.translate(str.maketrans("","", string.punctuation)) 
+print("Filtering") 
+print(fil) 
+print() 
+print('Stemming') 
+factory = StemmerFactory() 
+stemmer = factory.create_stemmer() 
+stemm = stemmer.stem(fil) 
+print(stemm) 
+print() 
+tokens = word_tokenize(stemm) 
+print("Tokenize") 
+print(tokens) 
+
+stopword = set(stopwords.words('indonesian')) 
+
+removed = [] 
+for t in tokens: 
+    if t not in stopword: 
+        removed.append(t) 
+        
+print() 
+print('stopwords removal') 
+print (removed)
+
+
+=============================================================================================================
+
+
+import string
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+
+# Sample text
+text = """Kini Jumbo hanya butuh 980.012 orang lagi untuk bisa menjungkal film komedi rilisan 2024 tersebut dan menjadi runner-up dalam film Indonesia terlaris sepanjang masa. 
+Perolehan lebih dari 8 juta penonton ini didapat Jumbo setelah berhasil mendapatkan 7 juta penonton pada 26 April 2025. Artinya, film ini memperoleh kisaran 200 ribu penonton setiap harinya pada periode 26 April-1 Mei 2025."""
+
+case_folding = text.lower()
+print("Case Folding: ") 
+print(case_folding) 
+print()
+
+fil = case_folding.translate(str.maketrans("", "", string.punctuation))
+print("Filtering")
+print(fil) 
+print()
+
+factory = StemmerFactory()
+stemmer = factory.create_stemmer()
+stemm = stemmer.stem(fil)
+print("Stemming") 
+print(stemm) 
+print()
+
+tokens = word_tokenize(stemm)
+print("Tokenize") 
+print(tokens) 
+
+stopword = set(stopwords.words('indonesian'))
+removed = [t for t in tokens if t not in stopword]
+
+print("Stopwords Removal") 
+print(removed)
+
+=============================================================================================================
